@@ -12,7 +12,11 @@ server.get('*', (req, res) => {
     template: `<div>访问的 URL 是： {{ url }}</div>`
   })
 
-  renderer.renderToString(app, (err, html) => {
+  const context = {
+    title: 'hello',
+    meta: `<meta charset="UTF-8">`
+  }
+  renderer.renderToString(app, context, (err, html) => {
     if (err) {
       res.status(500).end('Internal Server Error')
       return
@@ -20,5 +24,6 @@ server.get('*', (req, res) => {
     res.end(`${html}`)
   })
 })
-
-server.listen(8080)
+const port = 8080
+server.listen(port)
+console.log(`http://localhost:${port}`)
